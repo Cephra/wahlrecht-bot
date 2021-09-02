@@ -2,9 +2,9 @@ const Handlebars = require('handlebars');
 const fs = require('fs');
 
 templates = {
-  welcomeTemplate: 'welcome.hbs',
-  goodbyeTemplate: 'goodbye.hbs',
-  messageTemplate: 'message.hbs',
+  welcome: 'welcome.hbs',
+  goodbye: 'goodbye.hbs',
+  message: 'message.hbs',
 };
 
 Object.keys(templates).reduce((acc, v) => {
