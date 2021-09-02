@@ -1,5 +1,6 @@
 const fs = require('fs');
 const store = require('./store.js');
+const template = require('./template.js');
 
 const TelegramBot = require('node-telegram-bot-api');
 const token = '1934249310:AAGP9aMYe0xC0I33b6nqk41h_vu1Ul3yfNg';
@@ -26,7 +27,15 @@ bot.on('polling_error', (error) => {
   console.log(error);
 });
 
-module.exports = {
+const mod = module.exports = {
   sendDelta: (delta) => {
+    let templatedDeltas = delta.map((deltaEntry) => {
+      return template.messageTemplate(deltaEntry);
+    });
+    store.getChats().forEach((chatId) => {
+      templatedDeltas.forEach((templatedDelta) => {
+        bot.sendMessage(chatId, templatedDelta);
+      });
+    });
   },
 };

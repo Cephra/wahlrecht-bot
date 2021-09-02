@@ -28,9 +28,6 @@ const mod = module.exports = {
     store.chats = store.chats.filter(el => el !== chatId);
     mod.save();
   },
-  getStore() {
-    return store;
-  },
   saveNewState(newState) {
     store.state = newState;
     mod.save();
@@ -38,6 +35,9 @@ const mod = module.exports = {
   getState() {
     return store.state;
   },
+  getChats() {
+    return store.chats;
+  }
 };
 
 // read store on first open
