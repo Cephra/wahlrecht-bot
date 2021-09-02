@@ -5,6 +5,7 @@ let store = {
   chats: [],
   state: null,
 };
+let loadCallbacks = [];
 
 const mod = module.exports = {
   save() {
@@ -12,6 +13,9 @@ const mod = module.exports = {
     fs.writeFile('./store.json', serializedStore, (err) => {
       if (err) throw err;
     });
+  },
+  onLoad(cb) {
+    loadCallbacks.push(cb);
   },
   addChatId(chatId) {
     if (!chatId.includes(chatId)) {
@@ -29,7 +33,7 @@ const mod = module.exports = {
   },
   getState() {
     return store.state;
-  }
+  },
 };
 
 // read store on first open
@@ -39,5 +43,7 @@ fs.readFile('./store.json', (err, data) => {
   } else {
     store = JSON.parse(data);
     console.log('Loaded ./store.json');
+    console.log('Executing loadCallbacks');
+    loadCallbacks.forEach((cb) => cb());
   }
 });
