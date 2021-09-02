@@ -1,4 +1,8 @@
 const Handlebars = require('handlebars');
+const dayjs = require("dayjs");
+Handlebars.registerHelper('date', (timestamp) => {
+  return dayjs.unix(timestamp).format('DD.MM.YYYY');
+});
 const fs = require('fs');
 
 templates = {
