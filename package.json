@@ -1,9 +1,13 @@
 {
+  "license": "GPL-3.0-or-later",
   "dependencies": {
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.10",
     "dayjs": "^1.10.6",
     "handlebars": "^4.7.7",
     "node-telegram-bot-api": "^0.54.0"
+  },
+  "scripts": {
+    "start": "NTBA_FIX_319=1 node ./js/main.js"
   }
 }
