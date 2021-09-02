@@ -15,11 +15,8 @@ bot.onText(/\/start/, (msg, match) => {
 });
 
 bot.onText(/\/stop/, (msg, match) => {
-  fs.readFile('./goodbye.txt', (err, data) => {
-    if (err) throw err;
-    store.removeChatId(msg.chat.id);
-    bot.sendMessage(msg.chat.id, data);
-  });
+  store.removeChatId(msg.chat.id);
+  bot.sendMessage(msg.chat.id, templates.goodbye());
 });
 
 bot.on('polling_error', (error) => {
