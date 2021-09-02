@@ -12,24 +12,28 @@ const mod = module.exports = {
     const serializedStore = JSON.stringify(store, null, 2);
     fs.writeFile('./store.json', serializedStore, (err) => {
       if (err) throw err;
+      console.log('Saved store.json');
     });
   },
   onLoad(cb) {
     loadCallbacks.push(cb);
   },
   addChatId(chatId) {
-    if (!chatId.includes(chatId)) {
+    if (!store.chats.includes(chatId)) {
       store.chats.push(chatId);
     }
+    mod.save();
   },
   removeChatId(chatId) {
-    store.chats = store.filter(el => el !== chatId);
+    store.chats = store.chats.filter(el => el !== chatId);
+    mod.save();
   },
   getStore() {
     return store;
   },
   saveNewState(newState) {
     store.state = newState;
+    mod.save();
   },
   getState() {
     return store.state;

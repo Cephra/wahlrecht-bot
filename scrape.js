@@ -19,10 +19,9 @@ const reqHandler = (res) => {
     let comparedState = compare(newState, state);
     if (comparedState.length > 0) {
       console.log('Delta detected');
-      console.log(comparedState);
       store.saveNewState(newState);
       state = store.getState();
-      // handle delta
+      bot.sendDelta(comparedState);
     }
   } else {
     // set initial state
