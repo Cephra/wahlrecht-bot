@@ -6,10 +6,13 @@ templates = {
   goodbyeTemplate: 'goodbye.hbs',
   messageTemplate: 'message.hbs',
 };
+
 Object.keys(templates).reduce((acc, v) => {
   templates[v] = Handlebars.compile(
     fs.readFileSync(`./templates/${templates[v]}`).toString()
   );
   return acc;
 }, templates)
+console.log('Loaded templates');
+
 module.exports = templates;
