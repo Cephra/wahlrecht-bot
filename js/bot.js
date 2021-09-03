@@ -20,6 +20,10 @@ store.onLoad(() => {
     bot.sendMessage(msg.chat.id, templates.goodbye());
   });
 
+  bot.onText(/\/alle.*/i, (msg, match) => {
+    // TODO: implement this (with partial)
+  });
+
   bot.on('polling_error', (error) => {
     console.log(error);
   });
