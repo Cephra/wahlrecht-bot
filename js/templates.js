@@ -12,9 +12,16 @@ templates = {
 };
 
 Object.keys(templates).reduce((acc, v) => {
-  templates[v] = Handlebars.compile(
-    fs.readFileSync(`./templates/${templates[v]}`).toString()
+  const templateFile = `./templates/${templates[v]}`;
+  acc[v] = Handlebars.compile(
+    fs.readFileSync(templateFile).toString()
   );
+  fs.watchFile(templateFile, () => {
+    acc[v] = Handlebars.compile(
+      fs.readFileSync(templateFile).toString()
+    );
+    console.log(`Template ${templateFile} reloaded`);
+  });
   return acc;
 }, templates)
 console.log('Loaded templates');
