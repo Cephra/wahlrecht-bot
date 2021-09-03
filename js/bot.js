@@ -7,14 +7,14 @@ const token = '1981830261:AAGnSN8nyK3TiAcKYLiF6SNCNrPMyCamayE';
 
 const bot = new TelegramBot(token, {polling: true});
 
-bot.onText(/\/start/i, (msg, match) => {
+bot.onText(/\/start.*/i, (msg, match) => {
   store.addChatId(msg.chat.id);
   bot.sendMessage(msg.chat.id, templates.welcome({
     username: msg.chat.username,
   }));
 });
 
-bot.onText(/\/stop/i, (msg, match) => {
+bot.onText(/\/stop.*/i, (msg, match) => {
   store.removeChatId(msg.chat.id);
   bot.sendMessage(msg.chat.id, templates.goodbye());
 });
