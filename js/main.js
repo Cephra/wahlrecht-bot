@@ -3,6 +3,7 @@
 const bot = require('./bot.js');
 const store = require('./store.js');
 const scraper = require('./scraper.js');
+const axios = require("axios");
 
 let state;
 const reqHandler = (res) => {
@@ -28,7 +29,6 @@ store.onLoad(() => {
 
   const url = 'https://www.wahlrecht.de/umfragen/';
 
-  const axios = require("axios");
   axios.get(url).then(reqHandler).catch((err) => {
     throw err;
   });

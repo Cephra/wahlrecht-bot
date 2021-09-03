@@ -13,6 +13,7 @@ const readStore = () => {
   fs.readFile(storeFile, (err, data) => {
     if (err) {
       console.log(`Couldn\'t load ${storeFile}`);
+      mod.save();
     } else {
       store = JSON.parse(data);
       console.log(`Loaded ${storeFile}`);
