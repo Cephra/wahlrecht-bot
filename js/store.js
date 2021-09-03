@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 let store = {
-  token: '',
+  token: 'TOKEN_IN_STORE',
   refreshInterval: 900000,
   chats: [],
   state: null,
