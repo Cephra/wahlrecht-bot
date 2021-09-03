@@ -2,6 +2,7 @@ const fs = require('fs');
 
 let store = {
   token: '',
+  refreshInterval: 900000,
   chats: [],
   state: null,
 };
@@ -53,6 +54,9 @@ const mod = module.exports = {
   },
   getToken() {
     return store.token;
+  },
+  getRefreshInterval() {
+    return store.refreshInterval;
   }
 };
 readStore();

@@ -2,19 +2,15 @@
 
 const bot = require('./bot.js');
 const store = require('./store.js');
-const parse = require('./parse.js');
-
-const compare = (newState, oldState) => {
-  return newState.filter((v, i) => v.date > oldState[i].date);
-};
+const scraper = require('./scraper.js');
 
 let state;
 const reqHandler = (res) => {
   if (state && state.length > 0) {
     // compare states
     console.log('Fetched new state');
-    let newState = parse(res.data);
-    let comparedState = compare(newState, state);
+    let newState = scraper.parse(res.data);
+    let comparedState = scraper.compare(newState, state);
     if (comparedState.length > 0) {
       console.log('Delta detected');
       store.saveNewState(newState);
@@ -24,7 +20,7 @@ const reqHandler = (res) => {
   } else {
     // set initial state
     console.log('Setting initial state');
-    state = parse(res.data);
+    state = scraper.parse(res.data);
   }
 };
 store.onLoad(() => {
@@ -40,5 +36,5 @@ store.onLoad(() => {
     axios.get(url).then(reqHandler).catch((err) => {
       throw err;
     });
-  }, 300000);
+  }, store.getRefreshInterval());
 });

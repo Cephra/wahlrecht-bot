@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const mockStore = {
   token: 'testtoken',
+  refreshInterval: 900000,
   chats: [123,456],
   state: null,
 };
@@ -36,11 +37,13 @@ it('saves on changes', () => {
 
   const firstStore = {
     token: 'testtoken',
+    refreshInterval: 900000,
     chats: [123,456,789],
     state: null,
   };
   const secondStore = {
     token: 'testtoken',
+    refreshInterval: 900000,
     chats: [456,789],
     state: null,
   };
