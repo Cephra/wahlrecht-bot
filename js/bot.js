@@ -1,4 +1,3 @@
-const fs = require('fs');
 const store = require('./store.js');
 const templates = require('./templates.js');
 

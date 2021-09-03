@@ -19,6 +19,7 @@ it('reads the store.json', () => {
 
   store.onLoad(() => {
     expect(store.getToken()).toBe('testtoken');
+    expect(store.getRefreshInterval()).toBe(900000);
     expect(store.getChats()).toBe([
       123, 456
     ]);
