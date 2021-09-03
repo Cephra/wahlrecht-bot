@@ -2,11 +2,24 @@ const process = require('process');
 const fs = require('fs');
 
 let store = {
+  token: '',
   chats: [],
   state: null,
 };
 let loadCallbacks = [];
 
+const readStore = () => {
+  fs.readFile(storeFile, (err, data) => {
+    if (err) {
+      console.log('Couldn\'t load ./store.json');
+    } else {
+      store = JSON.parse(data);
+      console.log(`Loaded ${storeFile}`);
+      console.log('Executing loadCallbacks');
+      loadCallbacks.forEach((cb) => cb());
+    }
+  });
+};
 const mod = module.exports = {
   save() {
     const serializedStore = JSON.stringify(store, null, 2);
@@ -37,17 +50,9 @@ const mod = module.exports = {
   },
   getChats() {
     return store.chats;
+  },
+  getToken() {
+    return store.token;
   }
 };
-
-// read store on first open
-fs.readFile('./store.json', (err, data) => {
-  if (err) {
-    console.log('Couldn\'t load ./store.json');
-  } else {
-    store = JSON.parse(data);
-    console.log('Loaded ./store.json');
-    console.log('Executing loadCallbacks');
-    loadCallbacks.forEach((cb) => cb());
-  }
-});
+readStore();

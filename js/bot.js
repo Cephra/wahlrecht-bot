@@ -5,7 +5,7 @@ const templates = require('./templates.js');
 const TelegramBot = require('node-telegram-bot-api');
 const token = '1981830261:AAGnSN8nyK3TiAcKYLiF6SNCNrPMyCamayE';
 
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(store.getToken(), {polling: true});
 
 bot.onText(/\/start.*/i, (msg, match) => {
   store.addChatId(msg.chat.id);

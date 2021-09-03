@@ -17,10 +17,13 @@ Object.keys(templates).reduce((acc, v) => {
     fs.readFileSync(templateFile).toString()
   );
   fs.watchFile(templateFile, () => {
-    acc[v] = Handlebars.compile(
-      fs.readFileSync(templateFile).toString()
-    );
-    console.log(`Template ${templateFile} reloaded`);
+    fs.readFile(templateFile, (err, data) => {
+      if (err) throw err;
+      acc[v] = Handlebars.compile(
+        data.toString()
+      );
+      console.log(`Template ${templateFile} reloaded`);
+    });
   });
   return acc;
 }, templates)

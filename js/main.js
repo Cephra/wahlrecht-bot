@@ -1,9 +1,7 @@
 #!/usr/bin/node
 
 const bot = require('./bot.js');
-
 const store = require('./store.js');
-
 const parse = require('./parse.js');
 
 const compare = (newState, oldState) => {
