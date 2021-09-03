@@ -1,7 +1,12 @@
 const fs = require('fs');
 const templates = require('../templates.js');
 
-test('displays date correctly', () => {
+jest.mock('fs', () => ({
+  ...jest.requireActual('fs'),
+  watchFile: jest.fn()
+}));
+
+it('displays date correctly', () => {
   const testMessage = {
     "institute": 'InfratestDimap',
     "date": 1630101600,
@@ -20,4 +25,20 @@ test('displays date correctly', () => {
   .toString()
 
   expect(templates.message(testMessage)).toBe(expectedMessage);
-})
+});
+
+it('shows no user when it is not set', () => {
+  const expectedMessage = fs
+  .readFileSync('./js/tests/expectations/welcome_no_user.txt')
+  .toString()
+  expect(templates.welcome(null)).toBe(expectedMessage);
+});
+
+it('shows user when it is set', () => {
+  const expectedMessage = fs
+  .readFileSync('./js/tests/expectations/welcome_user.txt')
+  .toString()
+  expect(templates.welcome({
+    username: 'Username'
+  })).toBe(expectedMessage);
+});

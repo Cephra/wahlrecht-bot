@@ -1,4 +1,3 @@
-const process = require('process');
 const fs = require('fs');
 
 let store = {
@@ -8,10 +7,11 @@ let store = {
 };
 let loadCallbacks = [];
 
+const storeFile = './store.json';
 const readStore = () => {
   fs.readFile(storeFile, (err, data) => {
     if (err) {
-      console.log('Couldn\'t load ./store.json');
+      console.log(`Couldn\'t load ${storeFile}`);
     } else {
       store = JSON.parse(data);
       console.log(`Loaded ${storeFile}`);
