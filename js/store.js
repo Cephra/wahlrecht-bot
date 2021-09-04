@@ -15,7 +15,10 @@ const readStore = () => {
       console.log(`Couldn\'t load ${storeFile}`);
       mod.save();
     } else {
-      store = JSON.parse(data);
+      store = {
+        ...store,
+        ...JSON.parse(data)
+      };
       console.log(`Loaded ${storeFile}`);
       console.log('Executing loadCallbacks');
       loadCallbacks.forEach((cb) => cb());
