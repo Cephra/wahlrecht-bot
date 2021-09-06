@@ -34,7 +34,10 @@ module.exports = {
         date: date.value,
         recent: date.recent,
         predictions: parties.reduce((acc, el, pi) => {
-          acc[el] = parseInt(tableWilko.find(`tbody > tr:nth-child(${2+pi}) > td:nth-child(${3+ii})`).text().replace(' %', '').replace(',', '.'));
+          const exPerc = tableWilko.find(
+            `tbody > tr:nth-child(${2+pi}) > td:nth-child(${3+ii})`
+          ).text().replace(' %', '').replace(',', '.');
+          acc[el] = parseFloat(exPerc);
           return acc;
         }, {})
       };
