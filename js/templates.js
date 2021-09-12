@@ -3,6 +3,9 @@ const dayjs = require("dayjs");
 Handlebars.registerHelper('date', (timestamp) => {
   return dayjs.unix(timestamp).format('DD.MM.YYYY');
 });
+Handlebars.registerHelper('localize', (text, locale) => {
+  return text.toLocaleString(locale);
+});
 const fs = require('fs');
 
 const templatePattern = /(.+?)(?:\.(partial))?\.hbs/;

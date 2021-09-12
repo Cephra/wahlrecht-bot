@@ -12,11 +12,11 @@ it('displays date correctly', () => {
     "date": 1630101600,
     "recent": false,
     "predictions": {
-      "CDU/CSU": 26,
+      "CDU/CSU": 26.2,
       "SPD": 24,
-      "GRÜNE": 17,
+      "GRÜNE": 17.4,
       "FDP": 10,
-      "DIE LINKE": 6,
+      "DIE LINKE": 6.3,
       "AfD": 10
     }
   };
