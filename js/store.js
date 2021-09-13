@@ -1,4 +1,5 @@
 const fs = require('fs');
+const _ = require('lodash');
 
 let store = {
   token: 'TOKEN_IN_STORE',
@@ -28,13 +29,13 @@ const readStore = () => {
   });
 };
 const mod = module.exports = {
-  save() {
+  save: _.debounce(() => {
     const serializedStore = JSON.stringify(store, null, 2);
     fs.writeFile('./store.json', serializedStore, (err) => {
       if (err) throw err;
       console.log('Saved store.json');
     });
-  },
+  }),
 
   onLoad(cb) {
     loadCallbacks.push(cb);
@@ -71,14 +72,20 @@ const mod = module.exports = {
 
   makeAdmin(chatId, password) {
     if (store.adminPassword === password) {
-      store.admins.push(chatId);
-      return true;
+      if (!store.admins.includes(chatId)) {
+        store.admins.push(chatId);
+        mod.save();
+        return 1;
+      } else {
+        return 2;
+      }
     } else {
-      return false;
+      return 0;
     }
   },
   removeAdmin(chatId, password) {
     store.admins = store.admins.filter(el => el !== chatId);
+    mod.save();
   },
   isAdmin(chatId) {
     return store.admins.includes(chatId);

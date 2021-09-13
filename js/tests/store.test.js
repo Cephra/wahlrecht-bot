@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+jest.useFakeTimers();
+
 const mockStore = {
   token: 'testtoken',
   refreshInterval: 900000,
@@ -36,24 +38,19 @@ it('saves on changes', () => {
   store.addChatId(789);
   store.removeChatId(123);
 
-  const firstStore = {
+  const finalStore = {
     token: 'testtoken',
-    refreshInterval: 900000,
-    chats: [123,456,789],
-    state: null,
-  };
-  const secondStore = {
-    token: 'testtoken',
+    adminPassword: 'CHANGE_THIS',
     refreshInterval: 900000,
     chats: [456,789],
+    admins: [],
     state: null,
   };
 
-  expect(writeFileMock.mock.calls.length).toBe(2);
+  jest.runAllTimers();
+
+  expect(writeFileMock.mock.calls.length).toBe(1);
   expect(writeFileMock.mock.calls[0][1]).toBe(
-    JSON.stringify(firstStore, null, 2)
-  );
-  expect(writeFileMock.mock.calls[1][1]).toBe(
-    JSON.stringify(secondStore, null, 2)
+    JSON.stringify(finalStore, null, 2)
   );
 });
