@@ -20,6 +20,15 @@ store.onLoad(() => {
     bot.sendMessage(msg.chat.id, templates.goodbye());
   });
 
+  bot.onText(/\/admin\s(.*)/i, (msg, match) => {
+    const adminState = store.makeAdmin(msg.chat.id, match[1]);
+    bot.sendMessage(msg.chat.id, templates.admin({
+      wrongPassword: adminState === 0,
+      nowAdmin: adminState === 1,
+      alreadyAdmin: adminState === 2,
+    }));
+  });
+
   bot.on('polling_error', (error) => {
     console.log(error);
   });
