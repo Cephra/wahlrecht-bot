@@ -2,7 +2,6 @@ const store = require('./store.js');
 const templates = require('./templates.js');
 
 const TelegramBot = require('node-telegram-bot-api');
-const token = '1981830261:AAGnSN8nyK3TiAcKYLiF6SNCNrPMyCamayE';
 
 let bot;
 store.onLoad(() => {
@@ -18,6 +17,13 @@ store.onLoad(() => {
   bot.onText(/\/stop.*/i, (msg, match) => {
     store.removeChatId(msg.chat.id);
     bot.sendMessage(msg.chat.id, templates.goodbye());
+  });
+
+  bot.onText(/\/alle.*/i, (msg, match) => {
+    const state = store.getState();
+    bot.sendMessage(msg.chat.id, templates.message_all({
+      state: state
+    }));
   });
 
   bot.onText(/\/admin\s(.*)/i, (msg, match) => {
