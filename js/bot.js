@@ -20,7 +20,10 @@ store.onLoad(() => {
   });
 
   bot.onText(/\/alle.*/i, (msg, match) => {
-    bot.sendMessage(msg.chat.id, 'Hier würdest du alle Ergebnisse erhalten.');
+    const state = store.getState();
+    bot.sendMessage(msg.chat.id, templates.message_all({
+      state: state
+    }));
   });
 
   bot.onText(/\/admin\s(.*)/i, (msg, match) => {

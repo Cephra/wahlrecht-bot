@@ -24,7 +24,7 @@ it('displays date correctly', () => {
   .readFileSync('./js/tests/expectations/message.txt')
   .toString()
 
-  expect(templates.message(testMessage)).toBe(expectedMessage);
+  expect(templates.message_single(testMessage)).toBe(expectedMessage);
 });
 
 it('shows no user when it is not set', () => {
