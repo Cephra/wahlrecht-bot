@@ -42,7 +42,7 @@ store.onLoad(() => {
 module.exports = {
   sendDelta: (delta) => {
     let templatedDeltas = delta.map((deltaEntry) => {
-      return templates.message(deltaEntry);
+      return templates.message_single(deltaEntry);
     });
     store.getChats().forEach((chatId) => {
       templatedDeltas.forEach((templatedDelta) => {
