@@ -37,13 +37,27 @@ it('saves on changes', () => {
 
   store.addChatId(789);
   store.removeChatId(123);
+  let adminState;
+
+  adminState = store.makeAdmin(123, 'CHANGE_THIS');
+  expect(adminState).toBe(1);
+
+  adminState = store.makeAdmin(456, 'wrong_pass');
+  expect(adminState).toBe(0);
+
+  adminState = store.makeAdmin(123, 'CHANGE_THIS');
+  expect(adminState).toBe(2);
+
+  store.removeAdmin(456);
 
   const finalStore = {
     token: 'testtoken',
     adminPassword: 'CHANGE_THIS',
     refreshInterval: 900000,
     chats: [456,789],
-    admins: [],
+    admins: [
+      123
+    ],
     state: null,
   };
 
