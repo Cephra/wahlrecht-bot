@@ -3,30 +3,24 @@ const dayjs = require("dayjs");
 Handlebars.registerHelper('date', (timestamp) => {
   return dayjs.unix(timestamp).format('DD.MM.YYYY');
 });
+Handlebars.registerHelper('localize', (text, locale) => {
+  return text.toLocaleString(locale);
+});
 const fs = require('fs');
 
-templates = {
-  welcome: 'welcome.hbs',
-  goodbye: 'goodbye.hbs',
-  message: 'message.hbs',
-};
+const templatePattern = /(.+?)(?:\.(partial))?\.hbs/;
+const templateFiles = fs.readdirSync('./templates');
+templates = templateFiles.reduce((acc, filename) => {
+  const matchedFilename = filename.match(templatePattern);
+  const rawTemplate = fs.readFileSync(`./templates/${filename}`).toString();
 
-Object.keys(templates).reduce((acc, v) => {
-  const templateFile = `./templates/${templates[v]}`;
-  acc[v] = Handlebars.compile(
-    fs.readFileSync(templateFile).toString()
-  );
-  fs.watchFile(templateFile, () => {
-    fs.readFile(templateFile, (err, data) => {
-      if (err) throw err;
-      acc[v] = Handlebars.compile(
-        data.toString()
-      );
-      console.log(`Template ${templateFile} reloaded`);
-    });
-  });
+  if (matchedFilename[2]) {
+    Handlebars.registerPartial(matchedFilename[1], rawTemplate);
+  } else {
+    acc[matchedFilename[1]] = Handlebars.compile(rawTemplate);
+  }
+
   return acc;
-}, templates)
-console.log('Loaded templates');
+}, {});
 
 module.exports = templates;

@@ -2,8 +2,6 @@ Institut: {{ institute }}
 Datum: {{date date}}
 -------------------------------
 {{#each predictions}}
-{{@key}}: {{this}}%
+{{@key}}: {{localize this "de-DE"}}%
 {{/each}}
--------------------------------
-Mehr Informationen auf
-https://www.wahlrecht.de/umfragen/
+{{> footer }}
