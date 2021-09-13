@@ -22,6 +22,7 @@ const reqHandler = (res) => {
     // set initial state
     console.log('Setting initial state');
     state = scraper.parse(res.data);
+    store.saveNewState(state);
   }
 };
 store.onLoad(() => {
