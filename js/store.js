@@ -87,6 +87,9 @@ const mod = module.exports = {
     store.admins = store.admins.filter(el => el !== chatId);
     mod.save();
   },
+  getAdmins() {
+    return store.admins;
+  },
   isAdmin(chatId) {
     return store.admins.includes(chatId);
   }

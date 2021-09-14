@@ -35,6 +35,15 @@ store.onLoad(() => {
     }));
   });
 
+  bot.onText(/\/stats.*/i, (msg, match) => {
+    if (store.isAdmin(msg.chat.id)) {
+      bot.sendMessage(msg.chat.id, JSON.stringify({
+        chats: store.getChats(),
+        admins: store.getAdmins(),
+      }, null, 2));
+    }
+  });
+
   bot.on('polling_error', (error) => {
     console.log(error);
   });
