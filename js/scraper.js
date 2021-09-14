@@ -8,7 +8,7 @@ module.exports = {
     const $ = cheerio.load(data);
     const tableWilko = $('table.wilko');
 
-    const parties = tableWilko.find('tbody > tr:not(#datum):not(#son):not(#erhebung) > th').map((i,el) => {
+    const parties = tableWilko.find('tbody > tr:not(#datum):not(#erhebung) > th').map((i,el) => {
       return $(el).text();
     }).toArray();
 
@@ -34,10 +34,16 @@ module.exports = {
         date: date.value,
         recent: date.recent,
         predictions: parties.reduce((acc, el, pi) => {
-          const exPerc = tableWilko.find(
+          acc[el] = tableWilko
+          .find(
             `tbody > tr:nth-child(${2+pi}) > td:nth-child(${3+ii})`
-          ).text().replace(' %', '').replace(',', '.');
-          acc[el] = parseFloat(exPerc);
+          )
+          .text()
+          .replace(',', '.')
+          .match(/\d+(?:.\d+)?/g)
+          .map((match) => parseFloat(match))
+          .reduce((acc, el) => acc+el, 0);
+
           return acc;
         }, {})
       };
