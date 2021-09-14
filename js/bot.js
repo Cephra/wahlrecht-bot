@@ -44,6 +44,12 @@ store.onLoad(() => {
     }
   });
 
+  bot.onText(/\/tell\s([0-9]+)\s([^\s].*)/i, (msg, match) => {
+    if (store.isAdmin(msg.chat.id)) {
+      bot.sendMessage(match[1], match[2]);
+    }
+  });
+
   bot.on('polling_error', (error) => {
     console.log(error);
   });
