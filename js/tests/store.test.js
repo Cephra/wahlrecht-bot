@@ -59,7 +59,7 @@ it('saves on changes', () => {
       token: 'testtoken',
       adminPassword: 'CHANGE_THIS',
       refreshInterval: 900000,
-      chats: [456,789],
+      chats: [456, 789],
       admins: [
         123
       ],
