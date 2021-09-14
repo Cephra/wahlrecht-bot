@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const store = require('../store');
+jest.mock('node-telegram-bot-api');
 jest.mock('../store', () => ({
   onLoad: jest.fn((callback) => {
     callback();
@@ -9,7 +10,6 @@ jest.mock('../store', () => ({
     123, 456
   ])),
 }));
-jest.mock('node-telegram-bot-api');
 
 beforeEach(() => {
   TelegramBot.mockClear();
