@@ -50,6 +50,14 @@ store.onLoad(() => {
     }
   });
 
+  bot.onText(/\/shout\s(.*)/i, (msg, match) => {
+    if (store.isAdmin(msg.chat.id)) {
+      store.getChats().forEach((el) => {
+        bot.sendMessage(el, match[1]);
+      });
+    }
+  });
+
   bot.on('polling_error', (error) => {
     console.log(error);
   });
