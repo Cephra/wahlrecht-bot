@@ -8,12 +8,15 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 dayjs.tz.setDefault('Europe/Berlin');
+
 Handlebars.registerHelper('date', (timestamp) => {
   return dayjs.unix(timestamp).tz().format('DD.MM.YYYY');
 });
+
 Handlebars.registerHelper('localize', (text, locale) => {
-  return text.toLocaleString(locale);
+  return (text ?? '').toLocaleString(locale);
 });
+
 const fs = require('fs');
 
 const templatePattern = /(.+?)(?:\.(partial))?\.hbs/;
