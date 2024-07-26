@@ -5,5 +5,5 @@ it('scrapes data correctly from website', () => {
   const indexHtml = fs.readFileSync('./js/tests/fixtures/index.html');
   const scraped = scraper.parse(indexHtml);
 
-  expect(scraped[6].predictions['FDP']).toBe(12.5);
+  expect(scraped[0].predictions['GRÜNE']).toBe(11.5);
 });

@@ -40,10 +40,10 @@ module.exports = {
           )
           .text()
           .replace(',', '.')
-          .match(/\d+(?:.\d+)?/g)
+          .match(/(?:\d+(?:\.\d+)?|–)/g)
           .map((match) => parseFloat(match))
-          .reduce((acc, el) => acc+el, 0);
-
+          .pop();
+          
           return acc;
         }, {})
       };
