@@ -2,5 +2,10 @@ Institut: {{ institute }}
 Datum: {{date date}}
 {{> divider}}
 {{#each predictions}}
+{{#if this }}
 {{@key}}: {{localize this "de-DE"}}%
+{{/if }}
+{{#unless this }}
+{{@key}}: N/A
+{{/unless }}
 {{/each}}
