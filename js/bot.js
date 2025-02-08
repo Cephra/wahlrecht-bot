@@ -69,7 +69,10 @@ module.exports = {
     });
     store.getChats().forEach((chatId) => {
       templatedDeltas.forEach((templatedDelta) => {
-        bot.sendMessage(chatId, templatedDelta);
+        bot.sendMessage(chatId, templatedDelta).catch((err) => {
+          store.removeChatId(chatId);
+          console.log(err);
+        });
       });
     });
   },
