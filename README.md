@@ -1,8 +1,8 @@
 How to install deps:
 ```
-yarn install
+npm install
 ```
 How to start:
 ```
-yarn start
+npm start
 ```
