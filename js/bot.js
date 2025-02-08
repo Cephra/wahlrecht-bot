@@ -70,7 +70,18 @@ module.exports = {
     store.getChats().forEach((chatId) => {
       templatedDeltas.forEach((templatedDelta) => {
         bot.sendMessage(chatId, templatedDelta).catch((err) => {
-          store.removeChatId(chatId);
+          if (err.body) {
+            if (
+              403 === err.body.error_code && 
+              'Forbidden: bot was blocked by the user' === err.body.description
+            ) {
+              if (store.isAdmin(chatId)) {
+                store.removeAdmin(chatId);
+              }
+              store.removeChatId(chatId);
+            }
+          }
+
           console.log(err);
         });
       });
